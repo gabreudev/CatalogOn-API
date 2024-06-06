@@ -16,7 +16,7 @@ public class ProductController {
     @Autowired
     private ProductRepository repository;
 
-    @GetMapping
+    @GetMapping("/listproducts")
     public List<Product> getAll(){
         List<Product> products = repository.findAll();
         return products;
