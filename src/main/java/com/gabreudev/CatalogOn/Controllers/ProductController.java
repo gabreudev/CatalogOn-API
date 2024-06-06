@@ -1,12 +1,14 @@
 package com.gabreudev.CatalogOn.Controllers;
 
+import com.gabreudev.CatalogOn.Dtos.ProductRequestDTO;
 import com.gabreudev.CatalogOn.Dtos.ProductResponseDTO;
 import com.gabreudev.CatalogOn.Entities.Product;
 import com.gabreudev.CatalogOn.Repositories.ProductRepository;
+import com.gabreudev.CatalogOn.Servicies.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,12 +17,22 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductRepository repository;
+    private ProductService service;
 
-    @GetMapping("")
-    public List<ProductResponseDTO> getAll(){
-        List<ProductResponseDTO> products = repository.findAll().stream().map(ProductResponseDTO::new).toList();
-        return products;
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping()
+    public ResponseEntity<List<ProductResponseDTO>> getAll() {
+        List<ProductResponseDTO> products = service.getAll();
+        return ResponseEntity.ok(products);
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping()
+    public ResponseEntity.BodyBuilder postProduct(@RequestBody ProductRequestDTO data){
+        service.create(data);
+        return ResponseEntity.ok();
+        }
+
 }
+
 

@@ -1,5 +1,6 @@
 package com.gabreudev.CatalogOn.Entities;
 
+import com.gabreudev.CatalogOn.Dtos.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,6 +41,12 @@ public class Product {
 
     public String getImg() {
         return img;
+    }
+    public Product(ProductRequestDTO request){
+        this.nome = request.nome();
+        this.descricao = request.descricao();
+        this.preco = request.preco();
+        this.img = request.img();
     }
 }
 
