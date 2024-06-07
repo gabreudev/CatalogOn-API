@@ -28,9 +28,9 @@ public class ProductController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping()
-    public ResponseEntity.BodyBuilder postProduct(@RequestBody ProductRequestDTO data){
-        service.create(data);
-        return ResponseEntity.ok();
+    public ResponseEntity<Long> postProduct(@RequestBody ProductRequestDTO data){
+        Long id = service.create(data);
+        return ResponseEntity.ok(id);
         }
 
 }

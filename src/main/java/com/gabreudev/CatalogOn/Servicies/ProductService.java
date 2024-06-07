@@ -20,8 +20,10 @@ public class ProductService {
 
     }
 
-    public void create(ProductRequestDTO data) {
+    public Long create(ProductRequestDTO data) {
         Product entity = new Product(data);
         Product product = repository.save(entity);
+        ProductResponseDTO created = new ProductResponseDTO(product);
+        return created.id();
     }
 }

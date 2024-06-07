@@ -20,7 +20,7 @@ public class Product {
     private String descricao;
 
     private Float preco;
-
+    @Column(length = 10000)
     private String img;
 
     public Long getId() {
