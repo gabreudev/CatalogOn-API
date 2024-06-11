@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -25,5 +26,11 @@ public class ProductService {
         Product product = repository.save(entity);
         ProductResponseDTO created = new ProductResponseDTO(product);
         return created.id();
+    }
+
+    public ProductResponseDTO getproduct(Long id) {
+        Optional<Product> product = repository.findById(id);
+        ProductResponseDTO productDTO = new ProductResponseDTO(product.orElse(null));
+        return productDTO;
     }
 }
