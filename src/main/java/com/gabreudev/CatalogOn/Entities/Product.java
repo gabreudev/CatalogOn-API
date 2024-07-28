@@ -1,29 +1,30 @@
 package com.gabreudev.CatalogOn.Entities;
 
 import com.gabreudev.CatalogOn.Dtos.ProductRequestDTO;
-import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-@Table
-@Entity
+import java.util.UUID;
+
+@Table(value = "product")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Getter
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+    @PrimaryKey
+    private UUID id;
 
     private String nome;
 
     private String descricao;
 
     private Float preco;
-    @Column(length = 10000)
+
     private String img;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -43,6 +44,7 @@ public class Product {
         return img;
     }
     public Product(ProductRequestDTO request){
+        this.id = UUID.randomUUID();
         this.nome = request.nome();
         this.descricao = request.descricao();
         this.preco = request.preco();

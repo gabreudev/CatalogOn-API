@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -21,14 +22,14 @@ public class ProductService {
 
     }
 
-    public Long create(ProductRequestDTO data) {
+    public UUID create(ProductRequestDTO data) {
         Product entity = new Product(data);
         Product product = repository.save(entity);
         ProductResponseDTO created = new ProductResponseDTO(product);
         return created.id();
     }
 
-    public ProductResponseDTO getproduct(Long id) {
+    public ProductResponseDTO getproduct(UUID id) {
         Optional<Product> product = repository.findById(id);
         ProductResponseDTO productDTO = new ProductResponseDTO(product.orElse(null));
         return productDTO;
