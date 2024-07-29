@@ -33,8 +33,14 @@ public class ProductController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDTO> getProduct(@PathVariable UUID id){
-        ProductResponseDTO product = service.getproduct(id);
+        ProductResponseDTO product = service.getProduct(id);
         return ResponseEntity.ok(product);
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping("/{id}")
+    public ResponseEntity<UUID> deleteProduct(@PathVariable UUID id){
+        UUID deletedProductId = service.deleteProduct(id);
+        return ResponseEntity.ok(deletedProductId);
     }
 
 }

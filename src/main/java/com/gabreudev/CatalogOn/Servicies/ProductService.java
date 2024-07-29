@@ -29,9 +29,16 @@ public class ProductService {
         return created.id();
     }
 
-    public ProductResponseDTO getproduct(UUID id) {
+    public ProductResponseDTO getProduct(UUID id) {
         Optional<Product> product = repository.findById(id);
         ProductResponseDTO productDTO = new ProductResponseDTO(product.orElse(null));
         return productDTO;
+    }
+
+    public UUID deleteProduct(UUID id) {
+        Optional<Product> product = repository.findById(id);
+        repository.deleteById(id);
+        ProductResponseDTO productDTO = new ProductResponseDTO(product.orElse(null));
+        return productDTO.id();
     }
 }

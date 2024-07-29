@@ -10,5 +10,4 @@ public class CassandraConfig {
     @Bean
     CqlSession session() { return CqlSession.builder().withKeyspace("mykeyspace").build(); }
 
-
 }
