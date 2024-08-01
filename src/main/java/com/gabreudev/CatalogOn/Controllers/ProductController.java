@@ -37,7 +37,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<UUID> deleteProduct(@PathVariable UUID id){
         UUID deletedProductId = service.deleteProduct(id);
         return ResponseEntity.ok(deletedProductId);
