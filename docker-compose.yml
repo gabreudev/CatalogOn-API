@@ -1,10 +1,13 @@
-version: '3.1'
+version: '3.9'
 services:
   cassandra:
     image: cassandra:latest
     container_name: cassandra
     ports:
       - "9042:9042"
+    networks:
+      - my-network
+
 
   init:
     image: cassandra:latest
@@ -13,3 +16,22 @@ services:
     entrypoint: ["/bin/bash", "/init.sh"]
     volumes:
       - ./init.sh:/init.sh
+
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - cassandra
+    restart: always
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+    name: my-network

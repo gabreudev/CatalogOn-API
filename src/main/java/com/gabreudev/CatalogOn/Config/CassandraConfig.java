@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CassandraConfig {
+
     public
     @Bean
     CqlSession session() { return CqlSession.builder().withKeyspace("mykeyspace").build(); }
-
 }
