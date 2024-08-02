@@ -1,20 +1,19 @@
 package com.gabreudev.CatalogOn.Entities;
 
-import com.gabreudev.CatalogOn.Dtos.ProductRequestDTO;
 import lombok.*;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.UUID;
 
-@Table(value = "product")
+@Document(indexName = "product_index")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 public class Product {
 
-    @PrimaryKey
-    private UUID id;
+    @Id
+    private String id;
 
     private String nome;
 
@@ -24,7 +23,7 @@ public class Product {
 
     private String img;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
@@ -43,12 +42,12 @@ public class Product {
     public String getImg() {
         return img;
     }
-    public Product(ProductRequestDTO request){
-        this.id = UUID.randomUUID();
-        this.nome = request.nome();
-        this.descricao = request.descricao();
-        this.preco = request.preco();
-        this.img = request.img();
+    public Product(String nome, String descricao, Float preco, String img){
+        this.nome = UUID.randomUUID().toString();
+        this.nome = nome;
+        this.descricao =descricao;
+        this.preco = preco;
+        this.img = img;
     }
 }
 

@@ -1,22 +1,15 @@
 version: '3.9'
 services:
-  cassandra:
-    image: cassandra:latest
-    container_name: cassandra
+  elasticsearch:
+    image: elasticsearch:8.8.0
     ports:
-      - "9042:9042"
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
     networks:
       - my-network
-
-
-  init:
-    image: cassandra:latest
-    depends_on:
-      - cassandra
-    entrypoint: ["/bin/bash", "/init.sh"]
-    volumes:
-      - ./init.sh:/init.sh
-
 
   backend:
     build:
@@ -26,7 +19,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - cassandra
+      - elasticsearch
     restart: always
     networks:
       - my-network
@@ -34,4 +27,3 @@ services:
 networks:
   my-network:
     driver: bridge
-    name: my-network

@@ -1,44 +1,36 @@
 package com.gabreudev.CatalogOn.Servicies;
 
-import com.gabreudev.CatalogOn.Dtos.ProductRequestDTO;
-import com.gabreudev.CatalogOn.Dtos.ProductResponseDTO;
 import com.gabreudev.CatalogOn.Entities.Product;
 import com.gabreudev.CatalogOn.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public List<ProductResponseDTO> getAll(){
-        List<ProductResponseDTO> products = repository.findAll().stream().map(ProductResponseDTO::new).toList();
-        return products;
+    public Iterable<Product> getAll(){
+        return repository.findAll();
+
 
     }
 
-    public UUID create(ProductRequestDTO data) {
-        Product entity = new Product(data);
-        Product product = repository.save(entity);
-        ProductResponseDTO created = new ProductResponseDTO(product);
-        return created.id();
+    public String create(Product data) {
+        Product product = repository.save(data);
+        return product.getId();
     }
 
-    public ProductResponseDTO getProduct(UUID id) {
+    public Optional<Product> getProduct(String id) {
         Optional<Product> product = repository.findById(id);
-        ProductResponseDTO productDTO = new ProductResponseDTO(product.orElse(null));
-        return productDTO;
+        return product;
     }
 
-    public UUID deleteProduct(UUID id) {
+    public String deleteProduct(String id) {
         Optional<Product> product = repository.findById(id);
         repository.deleteById(id);
-        ProductResponseDTO productDTO = new ProductResponseDTO(product.orElse(null));
-        return productDTO.id();
+        return product.get().getId();
     }
 }

@@ -17,5 +17,5 @@ COPY wait-for-it.sh /app/wait-for-it.sh
 
 RUN chmod +x /app/wait-for-it.sh
 
-ENTRYPOINT ["./wait-for-it.sh", "cassandra:9042", "--", "java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 EXPOSE 8080
