@@ -17,6 +17,7 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
+    // Endpoint para receber todos os produtos
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping()
     public ResponseEntity<Iterable<Product>> getAll() {
@@ -24,18 +25,23 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    // Endpoint para cadastrar um produto
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping()
     public ResponseEntity<String> postProduct(@RequestBody Product data){
         String id = service.create(data);
         return ResponseEntity.ok(id);
         }
+
+    // Endpoint para pegar um produto eespecifico
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Product>> getProduct(@PathVariable String id){
         Optional<Product> product = service.getProduct(id);
         return ResponseEntity.ok(product);
     }
+
+    // Endpoint para deletar um produto eespecifico
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable String id){

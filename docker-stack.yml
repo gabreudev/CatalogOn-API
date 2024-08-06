@@ -10,10 +10,15 @@ services:
       - xpack.security.enabled=false
     networks:
       - my-network
+    deploy:
+      replicas: 2
+      placement:
+        preferences:
+          - spread: node.hostname
 
 
   backend:
-    image: backendspring:latest
+    image: gabreudev/backendspring:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -21,6 +26,10 @@ services:
     networks:
       - my-network
     deploy:
+      replicas: 2
+      placement:
+        preferences:
+          - spread: node.hostname
       restart_policy:
         condition: any
         delay: 10s

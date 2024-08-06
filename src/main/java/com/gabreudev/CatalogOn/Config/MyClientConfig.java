@@ -6,7 +6,6 @@ import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfigurat
 @Configuration
 public class MyClientConfig extends ElasticsearchConfiguration {
 
-    @Override
     public ClientConfiguration clientConfiguration() {
         return ClientConfiguration.builder()
                 .connectedTo("elasticsearch:9200")

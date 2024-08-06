@@ -1,0 +1,6 @@
+docker swarm init
+docker stack deploy -c docker-stack.yml meu_stack
+docker service logs meu_stack_backend
+docker service logs meu_stack_elasticsearch
+curl http://localhost:8080/product
+docker swarm join --token
